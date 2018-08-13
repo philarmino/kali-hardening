@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# by philarmino
+
+# 
