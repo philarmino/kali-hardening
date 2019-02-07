@@ -32,3 +32,25 @@ if [ -z "$ETC_PROFILE_RC" ] ; then
 else
   echo -e "\nSkipped, already present ...\n" | pv -qL 23
 fi  
+
+# Setup UFW for easy Firewall Setup
+apt-get install ufw -y -q
+ufw status
+ufw status numbered
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow ssh
+ufw allow mail
+ufw enable
+ufw reload
+ufw status numbered
+
+echo -e "# Log kernel generated UFW log messages to file
+:msg,contains,"[UFW " /var/log/ufw.log
+
+# Uncomment the following to stop logging anything that matches the last rule.
+# Doing this will stop logging kernel generated UFW log messages to the file
+# normally containing kern.* messages (eg, /var/log/kern.log)
+& stop" > /etc/rsyslog.d/20-ufw.conf 
+systemctl restart rsyslog
+
