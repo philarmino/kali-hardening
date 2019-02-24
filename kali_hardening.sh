@@ -28,7 +28,7 @@ echo -e "\nAdd entry in /etc/profile for login notification ...\n" | pv -qL 23
 ETC_PROFILE_RC=$(grep "shell-login" /etc/profile)
 if [ -z "$ETC_PROFILE_RC" ] ; then 
   read -p "Enter Email address for login notification" EMAIL
-  echo "/opt/shell-login.sh | mailx -s "SSH Login auf $(hosname)" $EMAIL" >> /etc/profile
+  echo "/opt/shell-login.sh | mailx -s \"SSH Login auf $hosname\" $EMAIL" >> /etc/profile
 else
   echo -e "\nSkipped, already present ...\n" | pv -qL 23
 fi  
